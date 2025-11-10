@@ -1,2 +1,3 @@
-# py-andre
-A python library for author name disambiguation result evaluation
+# About
+
+This repository is not yet usable.
