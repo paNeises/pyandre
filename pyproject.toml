@@ -3,8 +3,8 @@ requires = ["setuptools >= 77.0.3"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "andre"
-version = "0.1.0"
+name = "pyandre"
+version = "0.2.0"
 description = "A python library for author name disambiguation result evaluation"
 readme = "README.md"
 requires-python = ">=3.13"
