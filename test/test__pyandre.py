@@ -143,6 +143,46 @@ def test_BlockResult_5():
     assert exception.type == ValueError
 
 
+def test_BlockCollection_1():
+    """
+    Test the creation of a BlockCollection object with a valid
+    block_result_list.
+    """
+    arid_list_author_1 = ["1", "2", "5"]
+    arid_list_author_2 = ["3", "4", "8"]
+    arid_list_author_3 = ["6", "7"]
+    author_1 = pyandre.Author(arid_list_author_1)
+    author_2 = pyandre.Author(arid_list_author_2)
+    author_3 = pyandre.Author(arid_list_author_3)
+    author_list_1 = [author_1, author_2]
+    author_list_2 = [author_3]
+    block_result_1 = pyandre.BlockResult(author_list_1, author_list_1)
+    block_result_2 = pyandre.BlockResult(author_list_2, author_list_2)
+    block_result_list = [block_result_1, block_result_2]
+    pyandre.BlockCollection(block_result_list)
+
+
+def test_BlockCollection_2():
+    """
+    Test the creation of a BlockCollection object with a block_result_list that
+    contains blocks which share an authorship record.
+    """
+    arid_list_author_1 = ["1", "2", "5", "6"]
+    arid_list_author_2 = ["3", "4", "8"]
+    arid_list_author_3 = ["6", "7"]
+    author_1 = pyandre.Author(arid_list_author_1)
+    author_2 = pyandre.Author(arid_list_author_2)
+    author_3 = pyandre.Author(arid_list_author_3)
+    author_list_1 = [author_1, author_2]
+    author_list_2 = [author_3]
+    block_result_1 = pyandre.BlockResult(author_list_1, author_list_1)
+    block_result_2 = pyandre.BlockResult(author_list_2, author_list_2)
+    block_result_list = [block_result_1, block_result_2]
+    with pytest.raises(Exception) as exception:
+        pyandre.BlockCollection(block_result_list)
+    assert exception.type == ValueError
+
+
 def test_BlockResult_get_contained_arids_1():
     """
     Test the get_contained_arids function from a BlockResult object.
@@ -154,7 +194,7 @@ def test_BlockResult_get_contained_arids_1():
     author_list = [author_1, author_2]
     blockresult = pyandre.BlockResult(author_list, author_list)
     result = blockresult.get_contained_arids()
-    assert result == ["1", "2", "3", "4"]
+    assert result == ["1", "3", "2", "4"]
 
 
 def test_validate_arid_list_unique_arids_1():
@@ -203,3 +243,43 @@ def test_get_arids_from_author_list_2():
     author_list = [author_1, author_2]
     result = pyandre.get_arids_from_author_list(author_list)
     assert result == ["1", "2", "3", "3", "4"]
+
+
+def test_get_arids_from_block_result_list_1():
+    """
+    Test get_arids_from_block_result_list with two blocks which do not contain
+    a duplicate authorship record.
+    """
+    arid_list_author_1 = ["1", "2", "5"]
+    arid_list_author_2 = ["3", "4", "8"]
+    arid_list_author_3 = ["6", "7"]
+    author_1 = pyandre.Author(arid_list_author_1)
+    author_2 = pyandre.Author(arid_list_author_2)
+    author_3 = pyandre.Author(arid_list_author_3)
+    author_list_1 = [author_1, author_2]
+    author_list_2 = [author_3]
+    block_result_1 = pyandre.BlockResult(author_list_1, author_list_1)
+    block_result_2 = pyandre.BlockResult(author_list_2, author_list_2)
+    block_result_list = [block_result_1, block_result_2]
+    result = pyandre.get_arids_from_block_result_list(block_result_list)
+    assert result == ["1", "2", "5", "3", "4", "8", "6", "7"]
+
+
+def test_get_arids_from_block_result_list_2():
+    """
+    Test get_arids_from_block_result_list with two blocks which do contain a
+    duplicate authorship record.
+    """
+    arid_list_author_1 = ["1", "2", "5", "6"]
+    arid_list_author_2 = ["3", "4", "8"]
+    arid_list_author_3 = ["6", "7"]
+    author_1 = pyandre.Author(arid_list_author_1)
+    author_2 = pyandre.Author(arid_list_author_2)
+    author_3 = pyandre.Author(arid_list_author_3)
+    author_list_1 = [author_1, author_2]
+    author_list_2 = [author_3]
+    block_result_1 = pyandre.BlockResult(author_list_1, author_list_1)
+    block_result_2 = pyandre.BlockResult(author_list_2, author_list_2)
+    block_result_list = [block_result_1, block_result_2]
+    result = pyandre.get_arids_from_block_result_list(block_result_list)
+    assert result == ["1", "2", "5", "6", "3", "4", "8", "6", "7"]

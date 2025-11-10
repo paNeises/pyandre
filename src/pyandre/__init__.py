@@ -69,8 +69,7 @@ class BlockResult():
                              "equal to the set of authorship records "
                              "accumulated over all author in the "
                              "obtained_authors list, which is forbidden when "
-                             "creating a BlockResult onject.")
-        correct_authors_arids.sort()
+                             "creating a BlockResult object.")
         self._correct_authors: list[Author] = correct_authors
         self._obtained_authors: list[Author] = obtained_authors
         self._contained_arids: list[str] = correct_authors_arids
@@ -80,6 +79,30 @@ class BlockResult():
         Get all authorship record ID's that are contained in the block.
         """
         return self._contained_arids
+
+
+class BlockCollection():
+    """
+    A class for representing a collection of blocks obtained by a blocking
+    strategy over a author name disambiguation dataset. It requires the
+    blocking strategy to produce disjoint blocks, this is checked when
+    initializing an object of this class. It contains a list of BlockResult
+    objects.
+    """
+
+    def __init__(self, block_result_list: list[BlockResult]):
+        """
+        Checks that the BlockResult objects in the given list do not have a
+        common authorship record and the creates a BlockCollection object based
+        on the given list. If the check fails, an exception is raised.
+        """
+        contained_arids = get_arids_from_block_result_list(block_result_list)
+        if len(set(contained_arids)) != len(contained_arids):
+            raise ValueError("The given list of block results contains at "
+                             "least 2 blocks that have a common authorship "
+                             "record, whcih is forbidden when creating a "
+                             "BlockCollection object.")
+        self._block_result_list = block_result_list
 
 
 def validate_arid_list_unique_arids(arid_list: list[str]) -> bool:
@@ -100,15 +123,32 @@ def validate_arid_list_unique_arids(arid_list: list[str]) -> bool:
 
 def get_arids_from_author_list(author_list: list[Author]) -> list[str]:
     """
-    Get the list of all authorship records from a list of author objects. This
+    Get the list of all authorship records from a list of Author objects. This
     does not check if the resulting list conatins duplicates, which would
     imply that the same authorship record is present in different authors
     in the list.
 
     Keyword arguments:
-    author_list: The list of author that serves as a starting point.
+    author_list: The list of Author objects.
     """
     arid_list: list[str] = []
     for author in author_list:
         arid_list += author.get_arid_list()
+    return arid_list
+
+
+def get_arids_from_block_result_list(block_result_list: list[BlockResult])\
+        -> list[str]:
+    """
+    Get the list of all authorship records from a list of BlockResult objects.
+    This does not check if the resulting list contains duplicates, which would
+    imply that the same authorship record is contained in multiple blocks in
+    the list.
+
+    Keyword arguments:
+    block_result_list: The list of BlockResult objects.
+    """
+    arid_list: list[str] = []
+    for block_result in block_result_list:
+        arid_list += block_result.get_contained_arids()
     return arid_list
