@@ -143,6 +143,20 @@ def test_BlockResult_5():
     assert exception.type == ValueError
 
 
+def test_BlockResult_get_contained_arids_1():
+    """
+    Test the get_contained_arids function from a BlockResult object.
+    """
+    arid_list_author_1 = ["1", "3"]
+    arid_list_author_2 = ["2", "4"]
+    author_1 = andre.Author(arid_list_author_1)
+    author_2 = andre.Author(arid_list_author_2)
+    author_list = [author_1, author_2]
+    blockresult = andre.BlockResult(author_list, author_list)
+    result = blockresult.get_contained_arids()
+    assert result == ["1", "2", "3", "4"]
+
+
 def test_validate_arid_list_unique_arids_1():
     """
     Test validate_arid_list_unique_ids with a list containing only unique

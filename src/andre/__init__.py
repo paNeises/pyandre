@@ -75,6 +75,12 @@ class BlockResult():
         self._obtained_authors: list[Author] = obtained_authors
         self._contained_arids: list[str] = correct_authors_arids
 
+    def get_contained_arids(self) -> list[str]:
+        """
+        Get all authorship record ID's that are contained in the block.
+        """
+        return self._contained_arids
+
 
 def validate_arid_list_unique_arids(arid_list: list[str]) -> bool:
     """
