@@ -1,3 +1,6 @@
+import math
+
+
 class Author():
     """
     A class for representing an author as the list of its authorship record
@@ -132,6 +135,15 @@ class BlockResult():
         n = len(self._contained_arids)
         aap = aap / n
         return aap
+
+    def compute_k(self) -> float:
+        """
+        Compute and return the K metric of this block.
+        """
+        acp = self.compute_average_cluster_purity()
+        aap = self.compute_average_author_purity()
+        k = math.sqrt(acp * aap)
+        return k
 
 
 class BlockCollection():
