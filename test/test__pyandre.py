@@ -201,6 +201,9 @@ def test_BlockResult_get_contained_arids_1():
 
 
 def test_BlockResult_compute_average_cluster_purity_1():
+    """
+    Test the compute_average_cluster_purity function from a BlockResult object.
+    """
     arid_list_author_1 = ["1", "2", "3", "4"]
     arid_list_author_2 = ["5", "6", "7"]
     arid_list_author_3 = ["8", "9"]
@@ -224,6 +227,9 @@ def test_BlockResult_compute_average_cluster_purity_1():
 
 
 def test_BlockResult_compute_average_author_purity_1():
+    """
+    Test the compute_average_author_purity function from a BlockResult object.
+    """
     arid_list_author_1 = ["1", "2", "3", "4"]
     arid_list_author_2 = ["5", "6", "7"]
     arid_list_author_3 = ["8", "9"]
@@ -247,6 +253,9 @@ def test_BlockResult_compute_average_author_purity_1():
 
 
 def test_BlockResult_compute_k_1():
+    """
+    Test the compute_k function from a BlockResult object.
+    """
     arid_list_author_1 = ["1", "2", "3", "4"]
     arid_list_author_2 = ["5", "6", "7"]
     arid_list_author_3 = ["8", "9"]
