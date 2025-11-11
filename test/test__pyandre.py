@@ -143,6 +143,62 @@ def test_BlockResult_5():
     assert exception.type == ValueError
 
 
+def test_BlockResult_get_correct_authors_1():
+    """
+    Test the get_correct_authors function of the BlockResult class.
+    """
+    arid_list_author_1 = ["1", "2"]
+    arid_list_author_2 = ["3", "4"]
+    arid_list_author_3 = ["1"]
+    arid_list_author_4 = ["2", "3"]
+    arid_list_author_5 = ["4"]
+    author_1 = pyandre.Author(arid_list_author_1)
+    author_2 = pyandre.Author(arid_list_author_2)
+    author_3 = pyandre.Author(arid_list_author_3)
+    author_4 = pyandre.Author(arid_list_author_4)
+    author_5 = pyandre.Author(arid_list_author_5)
+    correct_authors = [author_1, author_2]
+    obtained_authors = [author_3, author_4, author_5]
+    block_result = pyandre.BlockResult(correct_authors, obtained_authors)
+    result = block_result.get_correct_authors()
+    assert correct_authors == result
+
+
+def test_BlockResult_get_obtained_authors_1():
+    """
+    Test the get_obtained_authors function of the BlockResult class.
+    """
+    arid_list_author_1 = ["1", "2"]
+    arid_list_author_2 = ["3", "4"]
+    arid_list_author_3 = ["1"]
+    arid_list_author_4 = ["2", "3"]
+    arid_list_author_5 = ["4"]
+    author_1 = pyandre.Author(arid_list_author_1)
+    author_2 = pyandre.Author(arid_list_author_2)
+    author_3 = pyandre.Author(arid_list_author_3)
+    author_4 = pyandre.Author(arid_list_author_4)
+    author_5 = pyandre.Author(arid_list_author_5)
+    correct_authors = [author_1, author_2]
+    obtained_authors = [author_3, author_4, author_5]
+    block_result = pyandre.BlockResult(correct_authors, obtained_authors)
+    result = block_result.get_obtained_authors()
+    assert obtained_authors == result
+
+
+def test_BlockResult_get_contained_arids_1():
+    """
+    Test the get_contained_arids function from a BlockResult object.
+    """
+    arid_list_author_1 = ["1", "3"]
+    arid_list_author_2 = ["2", "4"]
+    author_1 = pyandre.Author(arid_list_author_1)
+    author_2 = pyandre.Author(arid_list_author_2)
+    author_list = [author_1, author_2]
+    blockresult = pyandre.BlockResult(author_list, author_list)
+    result = blockresult.get_contained_arids()
+    assert result == ["1", "3", "2", "4"]
+
+
 def test_BlockCollection_1():
     """
     Test the creation of a BlockCollection object with a valid
@@ -183,18 +239,67 @@ def test_BlockCollection_2():
     assert exception.type == ValueError
 
 
-def test_BlockResult_get_contained_arids_1():
+def test_BlockCollection_get_correct_authors_1():
     """
-    Test the get_contained_arids function from a BlockResult object.
+    Test the get_correct_authors function of the BlockCollection class.
     """
-    arid_list_author_1 = ["1", "3"]
-    arid_list_author_2 = ["2", "4"]
+    arid_list_author_1 = ["1", "2", "5"]
+    arid_list_author_2 = ["3", "4", "8"]
+    arid_list_author_3 = ["6", "7"]
     author_1 = pyandre.Author(arid_list_author_1)
     author_2 = pyandre.Author(arid_list_author_2)
-    author_list = [author_1, author_2]
-    blockresult = pyandre.BlockResult(author_list, author_list)
-    result = blockresult.get_contained_arids()
-    assert result == ["1", "3", "2", "4"]
+    author_3 = pyandre.Author(arid_list_author_3)
+    author_list_1 = [author_1, author_2]
+    author_list_2 = [author_3]
+    block_result_1 = pyandre.BlockResult(author_list_1, author_list_1)
+    block_result_2 = pyandre.BlockResult(author_list_2, author_list_2)
+    block_result_list = [block_result_1, block_result_2]
+    block_collection = pyandre.BlockCollection(block_result_list)
+    full_author_list = [author_1, author_2, author_3]
+    result = block_collection.get_correct_authors()
+    assert result == full_author_list
+
+
+def test_BlockCollection_get_obtained_authors_1():
+    """
+    Test the get_obtained_authors function of the BlockCollection class.
+    """
+    arid_list_author_1 = ["1", "2", "5"]
+    arid_list_author_2 = ["3", "4", "8"]
+    arid_list_author_3 = ["6", "7"]
+    author_1 = pyandre.Author(arid_list_author_1)
+    author_2 = pyandre.Author(arid_list_author_2)
+    author_3 = pyandre.Author(arid_list_author_3)
+    author_list_1 = [author_1, author_2]
+    author_list_2 = [author_3]
+    block_result_1 = pyandre.BlockResult(author_list_1, author_list_1)
+    block_result_2 = pyandre.BlockResult(author_list_2, author_list_2)
+    block_result_list = [block_result_1, block_result_2]
+    block_collection = pyandre.BlockCollection(block_result_list)
+    full_author_list = [author_1, author_2, author_3]
+    result = block_collection.get_obtained_authors()
+    assert result == full_author_list
+
+
+def test_BlockCollection_get_contained_arids_1():
+    """
+    Test the get_contained_arids function of the BlockCollection class.
+    """
+    arid_list_author_1 = ["1", "2", "5"]
+    arid_list_author_2 = ["3", "4", "8"]
+    arid_list_author_3 = ["6", "7"]
+    author_1 = pyandre.Author(arid_list_author_1)
+    author_2 = pyandre.Author(arid_list_author_2)
+    author_3 = pyandre.Author(arid_list_author_3)
+    author_list_1 = [author_1, author_2]
+    author_list_2 = [author_3]
+    block_result_1 = pyandre.BlockResult(author_list_1, author_list_1)
+    block_result_2 = pyandre.BlockResult(author_list_2, author_list_2)
+    block_result_list = [block_result_1, block_result_2]
+    block_collection = pyandre.BlockCollection(block_result_list)
+    full_arid_list = ["1", "2", "5", "3", "4", "8", "6", "7"]
+    result = block_collection.get_contained_arids()
+    assert result == full_arid_list
 
 
 def test_validate_arid_list_unique_arids_1():

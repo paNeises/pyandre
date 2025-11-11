@@ -74,6 +74,19 @@ class BlockResult():
         self._obtained_authors: list[Author] = obtained_authors
         self._contained_arids: list[str] = correct_authors_arids
 
+    def get_correct_authors(self) -> list[Author]:
+        """
+        Returns the list of the correctly disambiguated authors.
+        """
+        return self._correct_authors
+
+    def get_obtained_authors(self) -> list[Author]:
+        """
+        Returns the list of the disambiguated authors obtained by the system
+        that should be evaluated.
+        """
+        return self._obtained_authors
+
     def get_contained_arids(self) -> list[str]:
         """
         Get all authorship record ID's that are contained in the block.
@@ -102,7 +115,34 @@ class BlockCollection():
                              "least 2 blocks that have a common authorship "
                              "record, whcih is forbidden when creating a "
                              "BlockCollection object.")
-        self._block_result_list = block_result_list
+        self._block_result_list: list[BlockResult] = block_result_list
+        correct_authors: list[Author] = []
+        obtained_authors: list[Author] = []
+        for block_result in self._block_result_list:
+            correct_authors += block_result.get_correct_authors()
+            obtained_authors += block_result.get_obtained_authors()
+        self._collection_block_result = BlockResult(correct_authors,
+                                                    obtained_authors)
+
+    def get_correct_authors(self) -> list[Author]:
+        """
+        Returns the list of the correctly disambiguated authors over all
+        blocks in the collection.
+        """
+        return self._collection_block_result.get_correct_authors()
+
+    def get_obtained_authors(self) -> list[Author]:
+        """
+        Returns the list of the disambiguated authors obtained by the system
+        that should be evaluated over all blocks of the collection.
+        """
+        return self._collection_block_result.get_obtained_authors()
+
+    def get_contained_arids(self) -> list[Author]:
+        """
+        Get all authorship record ID's that are contained in the collection.
+        """
+        return self._collection_block_result.get_contained_arids()
 
 
 def validate_arid_list_unique_arids(arid_list: list[str]) -> bool:
