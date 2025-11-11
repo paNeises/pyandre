@@ -93,6 +93,23 @@ class BlockResult():
         """
         return self._contained_arids
 
+    def compute_average_cluster_purity(self) -> float:
+        """
+        Compute and return the average cluster purity (ACP) metric of this
+        block.
+        """
+        acp = 0
+        for obtained_author in self._obtained_authors:
+            for correct_author in self._correct_authors:
+                correct_arid_set = set(correct_author.get_arid_list())
+                obtained_arid_set = set(obtained_author.get_arid_list())
+                n_ij = len(correct_arid_set & obtained_arid_set)
+                n_i = len(obtained_arid_set)
+                acp += n_ij ** 2 / n_i
+        n = len(self._contained_arids)
+        acp = acp / n
+        return acp
+
 
 class BlockCollection():
     """
