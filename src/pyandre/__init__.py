@@ -99,16 +99,39 @@ class BlockResult():
         block.
         """
         acp = 0
-        for obtained_author in self._obtained_authors:
-            for correct_author in self._correct_authors:
-                correct_arid_set = set(correct_author.get_arid_list())
-                obtained_arid_set = set(obtained_author.get_arid_list())
-                n_ij = len(correct_arid_set & obtained_arid_set)
-                n_i = len(obtained_arid_set)
+        for empirical_cluster in self._obtained_authors:
+            for theoretical_cluster in self._correct_authors:
+                empirical_cluster_arid_set =\
+                    set(empirical_cluster.get_arid_list())
+                theoretical_cluster_arid_set =\
+                    set(theoretical_cluster.get_arid_list())
+                n_ij = len(empirical_cluster_arid_set
+                           & theoretical_cluster_arid_set)
+                n_i = len(empirical_cluster_arid_set)
                 acp += n_ij ** 2 / n_i
         n = len(self._contained_arids)
         acp = acp / n
         return acp
+
+    def compute_average_author_purity(self) -> float:
+        """
+        Compute and return the average author purity (AAP) metric of this
+        block.
+        """
+        aap = 0
+        for theoretical_cluster in self._correct_authors:
+            for empirical_cluster in self._obtained_authors:
+                theoretical_cluster_arid_set =\
+                    set(theoretical_cluster.get_arid_list())
+                empirical_cluster_arid_set =\
+                    set(empirical_cluster.get_arid_list())
+                n_ij = len(theoretical_cluster_arid_set
+                           & empirical_cluster_arid_set)
+                n_j = len(theoretical_cluster_arid_set)
+                aap += n_ij ** 2 / n_j
+        n = len(self._contained_arids)
+        aap = aap / n
+        return aap
 
 
 class BlockCollection():

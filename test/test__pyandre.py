@@ -222,6 +222,29 @@ def test_BlockResult_compute_average_cluster_purity_1():
     assert result == acp
 
 
+def test_BlockResult_compute_average_author_purity_1():
+    arid_list_author_1 = ["1", "2", "3", "4"]
+    arid_list_author_2 = ["5", "6", "7"]
+    arid_list_author_3 = ["8", "9"]
+    arid_list_author_4 = ["1", "2", "3"]
+    arid_list_author_5 = ["5", "6", "7"]
+    arid_list_author_6 = ["4", "8"]
+    arid_list_author_7 = ["9"]
+    author_1 = pyandre.Author(arid_list_author_1)
+    author_2 = pyandre.Author(arid_list_author_2)
+    author_3 = pyandre.Author(arid_list_author_3)
+    author_4 = pyandre.Author(arid_list_author_4)
+    author_5 = pyandre.Author(arid_list_author_5)
+    author_6 = pyandre.Author(arid_list_author_6)
+    author_7 = pyandre.Author(arid_list_author_7)
+    correct_authors = [author_1, author_2, author_3]
+    obtained_authors = [author_4, author_5, author_6, author_7]
+    block_result = pyandre.BlockResult(correct_authors, obtained_authors)
+    aap = 6.5 / 9
+    result = block_result.compute_average_author_purity()
+    assert result == aap
+
+
 def test_BlockCollection_1():
     """
     Test the creation of a BlockCollection object with a valid
