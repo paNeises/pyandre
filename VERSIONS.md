@@ -1,3 +1,10 @@
+# v0.4.0
+
+- Refactor the library, class names and function names have changed
+- Introduce different files for the different classes
+- Remove block collection since it was only a dummy
+- Introduce arid class
+
 # v0.3.0
 
 - Add VERSIONS.md
