@@ -1,3 +1,10 @@
+# v0.3.0
+
+- Add VERSIONS.md
+- Add ACP, AAP and K metric computation on single blocks
+- Add block collection
+- Not yet usable
+
 # v0.2.0
 
 - Renamed the package
