@@ -5,7 +5,7 @@ from pyandre.arid import Arid
 from pyandre.cluster import Cluster
 
 
-class BlockResult():
+class Result():
     """
     A class for representing the theoretical clusters (the gold standard) and
     the empirical clusters (the results of an author name disambiguation

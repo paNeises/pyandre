@@ -4,7 +4,7 @@ import math
 import pytest
 
 
-from pyandre.block_result import Arid, Cluster, BlockResult
+from pyandre.result import Arid, Cluster, Result
 
 
 def test_constructor_1():
@@ -27,7 +27,7 @@ def test_constructor_1():
     cluster_5 = Cluster(arid_list_cluster_5)
     theoretical_clusters = [cluster_1, cluster_2]
     empirical_clusters = [cluster_3, cluster_4, cluster_5]
-    BlockResult(theoretical_clusters, empirical_clusters)
+    Result(theoretical_clusters, empirical_clusters)
 
 
 def test_constructor_2():
@@ -56,7 +56,7 @@ def test_constructor_2():
     cluster_5 = Cluster(arid_list_cluster_5)
     theoretical_clusters = [cluster_1, cluster_2]
     empirical_clusters = [cluster_3, cluster_4, cluster_5]
-    BlockResult(theoretical_clusters, empirical_clusters)
+    Result(theoretical_clusters, empirical_clusters)
 
 
 def test_constructor_3():
@@ -83,7 +83,7 @@ def test_constructor_3():
     theoretical_clusters = [cluster_1, cluster_2]
     empirical_clusters = [cluster_3, cluster_4, cluster_5]
     with pytest.raises(Exception) as exception:
-        BlockResult(theoretical_clusters, empirical_clusters)
+        Result(theoretical_clusters, empirical_clusters)
     assert exception.type == ValueError
 
 
@@ -111,7 +111,7 @@ def test_constructor_4():
     theoretical_clusters = [cluster_1, cluster_2]
     empirical_clusters = [cluster_3, cluster_4, cluster_5]
     with pytest.raises(Exception) as exception:
-        BlockResult(theoretical_clusters, empirical_clusters)
+        Result(theoretical_clusters, empirical_clusters)
     assert exception.type == ValueError
 
 
@@ -139,7 +139,7 @@ def test_constructor_5():
     theoretical_clusters = [cluster_1, cluster_2]
     empirical_clusters = [cluster_3, cluster_4, cluster_5]
     with pytest.raises(Exception) as exception:
-        BlockResult(theoretical_clusters, empirical_clusters)
+        Result(theoretical_clusters, empirical_clusters)
     assert exception.type == ValueError
 
 
@@ -167,7 +167,7 @@ def test_constructor_6():
     theoretical_clusters = [cluster_1, cluster_2]
     empirical_clusters = [cluster_3, cluster_4, cluster_5]
     with pytest.raises(Exception) as exception:
-        BlockResult(theoretical_clusters, empirical_clusters)
+        Result(theoretical_clusters, empirical_clusters)
     assert exception.type == ValueError
 
 
@@ -191,9 +191,9 @@ def test_get_contained_arids():
     cluster_5 = Cluster(arid_list_cluster_5)
     theoretical_clusters = [cluster_1, cluster_2]
     empirical_clusters = [cluster_3, cluster_4, cluster_5]
-    block_result = BlockResult(theoretical_clusters, empirical_clusters)
+    result = Result(theoretical_clusters, empirical_clusters)
     all_arids = [arid_1, arid_2, arid_3, arid_4]
-    assert block_result.get_contained_arids() == all_arids
+    assert result.get_contained_arids() == all_arids
 
 
 def test_BlockResult_compute_average_cluster_purity_1():
@@ -226,10 +226,9 @@ def test_BlockResult_compute_average_cluster_purity_1():
     cluster_7 = Cluster(arid_list_cluster_7)
     theoretical_clusters = [cluster_1, cluster_2, cluster_3]
     empirical_clusters = [cluster_4, cluster_5, cluster_6, cluster_7]
-    block_result = BlockResult(theoretical_clusters, empirical_clusters)
+    result = Result(theoretical_clusters, empirical_clusters)
     acp = 8 / 9
-    result = block_result.compute_average_cluster_purity()
-    assert result == acp
+    assert result.compute_average_cluster_purity() == acp
 
 
 def test_BlockResult_compute_average_author_purity_1():
@@ -261,10 +260,9 @@ def test_BlockResult_compute_average_author_purity_1():
     cluster_7 = Cluster(arid_list_cluster_7)
     theoretical_clusters = [cluster_1, cluster_2, cluster_3]
     empirical_clusters = [cluster_4, cluster_5, cluster_6, cluster_7]
-    block_result = BlockResult(theoretical_clusters, empirical_clusters)
+    result = Result(theoretical_clusters, empirical_clusters)
     aap = 6.5 / 9
-    result = block_result.compute_average_author_purity()
-    assert result == aap
+    assert result.compute_average_author_purity() == aap
 
 
 def test_BlockResult_compute_k_1():
@@ -296,7 +294,6 @@ def test_BlockResult_compute_k_1():
     cluster_7 = Cluster(arid_list_cluster_7)
     theoretical_clusters = [cluster_1, cluster_2, cluster_3]
     empirical_clusters = [cluster_4, cluster_5, cluster_6, cluster_7]
-    block_result = BlockResult(theoretical_clusters, empirical_clusters)
+    result = Result(theoretical_clusters, empirical_clusters)
     k = math.sqrt((8 / 9) * (6.5 / 9))
-    result = block_result.compute_k()
-    assert result == k
+    assert result.compute_k() == k
