@@ -9,7 +9,7 @@ class Result():
     """
     A class for representing the theoretical clusters (the gold standard) and
     the empirical clusters (the results of an author name disambiguation
-    system) of a block derived by some blocking procedure.
+    system).
     """
 
     def __init__(self,
@@ -54,14 +54,14 @@ class Result():
 
     def get_contained_arids(self) -> list[Arid]:
         """
-        Get all authorship record IDs that are contained in the block.
+        Get all authorship record IDs that are contained in the result.
         """
         return self._contained_arids
 
     def compute_average_cluster_purity(self) -> float:
         """
         Compute and return the average cluster purity (ACP) metric of this
-        block.
+        result.
         """
         acp = 0
         for empirical_cluster in self._empirical_clusters:
@@ -84,7 +84,7 @@ class Result():
     def compute_average_author_purity(self) -> float:
         """
         Compute and return the average author purity (AAP) metric of this
-        block.
+        result.
         """
         aap = 0
         for theoretical_cluster in self._theoretical_clusters:
@@ -106,9 +106,18 @@ class Result():
 
     def compute_k(self) -> float:
         """
-        Compute and return the K metric of this block.
+        Compute and return the K metric of this result.
         """
         acp = self.compute_average_cluster_purity()
         aap = self.compute_average_author_purity()
         k = math.sqrt(acp * aap)
         return k
+
+    def compute_ratio_of_cluster_size(self) -> float:
+        """
+        Compute and return the ratio of cluster size (RCS) of this result.
+        """
+        empirical_cluster_count = len(self._empirical_clusters)
+        theoretical_cluster_count = len(self._theoretical_clusters)
+        rcs = empirical_cluster_count / theoretical_cluster_count
+        return rcs
