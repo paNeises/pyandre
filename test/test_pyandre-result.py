@@ -9,7 +9,7 @@ from pyandre.result import Arid, Cluster, Result
 
 def test_constructor_1():
     """
-    Test the creation of a BlockResult object with valid cluster lists.
+    Test the creation of a Result object with valid cluster lists.
     """
     arid_1 = Arid("1")
     arid_2 = Arid("2")
@@ -32,7 +32,7 @@ def test_constructor_1():
 
 def test_constructor_2():
     """
-    Test the creation of a BlockResult object with valid cluster lists where
+    Test the creation of a Result object with valid cluster lists where
     distinct Arid objects are used in the theoretical and the empirical
     clusters for the same arid identifier.
     """
@@ -61,7 +61,7 @@ def test_constructor_2():
 
 def test_constructor_3():
     """
-    Test the creation of a BlockResult object with invalid cluster lists, where
+    Test the creation of a Result object with invalid cluster lists, where
     the theoretical one contains duplicate authorship records between its
     clusters.
     """
@@ -89,7 +89,7 @@ def test_constructor_3():
 
 def test_constructor_4():
     """
-    Test the creation of a BlockResult object with invalid cluster lists, where
+    Test the creation of a Result object with invalid cluster lists, where
     the empirical one contains duplicate authorship records between its
     clusters.
     """
@@ -117,7 +117,7 @@ def test_constructor_4():
 
 def test_constructor_5():
     """
-    Test the creation of a BlockResult object with invalid cluster lists, where
+    Test the creation of a Result object with invalid cluster lists, where
     the theoretical one contains one authorship record not presend in the
     empirical one.
     """
@@ -145,7 +145,7 @@ def test_constructor_5():
 
 def test_constructor_6():
     """
-    Test the creation of a BlockResult object with invalid cluster lists, where
+    Test the creation of a Result object with invalid cluster lists, where
     the empirical one contains one authorship record not presend in the
     theoretical one.
     """
@@ -173,7 +173,7 @@ def test_constructor_6():
 
 def test_get_contained_arids():
     """
-    Test the get_contained_arids function of the BlockResult class.
+    Test the get_contained_arids function of the Result class.
     """
     arid_1 = Arid("1")
     arid_2 = Arid("2")
@@ -196,9 +196,9 @@ def test_get_contained_arids():
     assert result.get_contained_arids() == all_arids
 
 
-def test_BlockResult_compute_average_cluster_purity_1():
+def test_compute_average_cluster_purity_1():
     """
-    Test the compute_average_cluster_purity function from the BlockResult
+    Test the compute_average_cluster_purity function from the Result
     class.
     """
     arid_1 = Arid("1")
@@ -231,9 +231,9 @@ def test_BlockResult_compute_average_cluster_purity_1():
     assert result.compute_average_cluster_purity() == acp
 
 
-def test_BlockResult_compute_average_author_purity_1():
+def test_compute_average_author_purity_1():
     """
-    Test the compute_average_author_purity function from a BlockResult object.
+    Test the compute_average_author_purity function from a Result object.
     """
     arid_1 = Arid("1")
     arid_2 = Arid("2")
@@ -265,9 +265,9 @@ def test_BlockResult_compute_average_author_purity_1():
     assert result.compute_average_author_purity() == aap
 
 
-def test_BlockResult_compute_k_1():
+def test_compute_k_1():
     """
-    Test the compute_k function from a BlockResult object.
+    Test the compute_k function from a Result object.
     """
     arid_1 = Arid("1")
     arid_2 = Arid("2")
