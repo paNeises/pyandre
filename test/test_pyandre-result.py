@@ -299,6 +299,198 @@ def test_compute_k_1():
     assert result.compute_k() == k
 
 
+def test_compute_pairwise_precision_1():
+    """
+    Test the compute_pairwise_precision function from a Result object.
+    """
+    arid_1 = Arid("1")
+    arid_2 = Arid("2")
+    arid_3 = Arid("3")
+    arid_4 = Arid("4")
+    arid_5 = Arid("5")
+    arid_6 = Arid("6")
+    arid_7 = Arid("7")
+    arid_8 = Arid("8")
+    arid_9 = Arid("9")
+    arid_list_cluster_1 = [arid_1, arid_2, arid_3, arid_4]
+    arid_list_cluster_2 = [arid_5, arid_6, arid_7]
+    arid_list_cluster_3 = [arid_8, arid_9]
+    arid_list_cluster_4 = [arid_1, arid_2, arid_3]
+    arid_list_cluster_5 = [arid_5, arid_6, arid_7]
+    arid_list_cluster_6 = [arid_4, arid_8]
+    arid_list_cluster_7 = [arid_9]
+    cluster_1 = Cluster(arid_list_cluster_1)
+    cluster_2 = Cluster(arid_list_cluster_2)
+    cluster_3 = Cluster(arid_list_cluster_3)
+    cluster_4 = Cluster(arid_list_cluster_4)
+    cluster_5 = Cluster(arid_list_cluster_5)
+    cluster_6 = Cluster(arid_list_cluster_6)
+    cluster_7 = Cluster(arid_list_cluster_7)
+    theoretical_clusters = [cluster_1, cluster_2, cluster_3]
+    empirical_clusters = [cluster_4, cluster_5, cluster_6, cluster_7]
+    result = Result(theoretical_clusters, empirical_clusters)
+    pp = 6/7
+    assert result.compute_pairwise_precision() == pp
+
+
+def test_compute_pairwise_precision_2():
+    """
+    Test the compute_pairwise_precision function from a Result object when
+    pairwise precision is undefined.
+    """
+    arid_1 = Arid("1")
+    arid_2 = Arid("2")
+    arid_3 = Arid("3")
+    arid_list_cluster_1 = [arid_1, arid_2, arid_3]
+    arid_list_cluster_2 = [arid_1]
+    arid_list_cluster_3 = [arid_2]
+    arid_list_cluster_4 = [arid_3]
+    cluster_1 = Cluster(arid_list_cluster_1)
+    cluster_2 = Cluster(arid_list_cluster_2)
+    cluster_3 = Cluster(arid_list_cluster_3)
+    cluster_4 = Cluster(arid_list_cluster_4)
+    theoretical_clusters = [cluster_1]
+    empirical_clusters = [cluster_2, cluster_3, cluster_4]
+    result = Result(theoretical_clusters, empirical_clusters)
+    assert result.compute_pairwise_precision() is None
+
+
+def test_compute_pairwise_recall_1():
+    """
+    Test the compute_pairwise_recall function from a Result object.
+    """
+    arid_1 = Arid("1")
+    arid_2 = Arid("2")
+    arid_3 = Arid("3")
+    arid_4 = Arid("4")
+    arid_5 = Arid("5")
+    arid_6 = Arid("6")
+    arid_7 = Arid("7")
+    arid_8 = Arid("8")
+    arid_9 = Arid("9")
+    arid_list_cluster_1 = [arid_1, arid_2, arid_3, arid_4]
+    arid_list_cluster_2 = [arid_5, arid_6, arid_7]
+    arid_list_cluster_3 = [arid_8, arid_9]
+    arid_list_cluster_4 = [arid_1, arid_2, arid_3]
+    arid_list_cluster_5 = [arid_5, arid_6, arid_7]
+    arid_list_cluster_6 = [arid_4, arid_8]
+    arid_list_cluster_7 = [arid_9]
+    cluster_1 = Cluster(arid_list_cluster_1)
+    cluster_2 = Cluster(arid_list_cluster_2)
+    cluster_3 = Cluster(arid_list_cluster_3)
+    cluster_4 = Cluster(arid_list_cluster_4)
+    cluster_5 = Cluster(arid_list_cluster_5)
+    cluster_6 = Cluster(arid_list_cluster_6)
+    cluster_7 = Cluster(arid_list_cluster_7)
+    theoretical_clusters = [cluster_1, cluster_2, cluster_3]
+    empirical_clusters = [cluster_4, cluster_5, cluster_6, cluster_7]
+    result = Result(theoretical_clusters, empirical_clusters)
+    pr = 6/10
+    assert result.compute_pairwise_recall() == pr
+
+
+def test_compute_pairwise_recall_2():
+    """
+    Test the compute_pairwise_recall function from a Result object when
+    pairwise recall is undefined.
+    """
+    arid_1 = Arid("1")
+    arid_2 = Arid("2")
+    arid_3 = Arid("3")
+    arid_list_cluster_1 = [arid_1]
+    arid_list_cluster_2 = [arid_2]
+    arid_list_cluster_3 = [arid_3]
+    arid_list_cluster_4 = [arid_1, arid_2, arid_3]
+    cluster_1 = Cluster(arid_list_cluster_1)
+    cluster_2 = Cluster(arid_list_cluster_2)
+    cluster_3 = Cluster(arid_list_cluster_3)
+    cluster_4 = Cluster(arid_list_cluster_4)
+    theoretical_clusters = [cluster_1, cluster_2, cluster_3]
+    empirical_clusters = [cluster_4]
+    result = Result(theoretical_clusters, empirical_clusters)
+    assert result.compute_pairwise_recall() is None
+
+
+def test_compute_pairwise_f1_1():
+    """
+    Test the compute_pairwise_f1 function from a Result object.
+    """
+    arid_1 = Arid("1")
+    arid_2 = Arid("2")
+    arid_3 = Arid("3")
+    arid_4 = Arid("4")
+    arid_5 = Arid("5")
+    arid_6 = Arid("6")
+    arid_7 = Arid("7")
+    arid_8 = Arid("8")
+    arid_9 = Arid("9")
+    arid_list_cluster_1 = [arid_1, arid_2, arid_3, arid_4]
+    arid_list_cluster_2 = [arid_5, arid_6, arid_7]
+    arid_list_cluster_3 = [arid_8, arid_9]
+    arid_list_cluster_4 = [arid_1, arid_2, arid_3]
+    arid_list_cluster_5 = [arid_5, arid_6, arid_7]
+    arid_list_cluster_6 = [arid_4, arid_8]
+    arid_list_cluster_7 = [arid_9]
+    cluster_1 = Cluster(arid_list_cluster_1)
+    cluster_2 = Cluster(arid_list_cluster_2)
+    cluster_3 = Cluster(arid_list_cluster_3)
+    cluster_4 = Cluster(arid_list_cluster_4)
+    cluster_5 = Cluster(arid_list_cluster_5)
+    cluster_6 = Cluster(arid_list_cluster_6)
+    cluster_7 = Cluster(arid_list_cluster_7)
+    theoretical_clusters = [cluster_1, cluster_2, cluster_3]
+    empirical_clusters = [cluster_4, cluster_5, cluster_6, cluster_7]
+    result = Result(theoretical_clusters, empirical_clusters)
+    pp = 6/7
+    pr = 6/10
+    pf1 = (2 * pp * pr) / (pp + pr)
+    assert result.compute_pairwise_f1() == pf1
+
+
+def test_compute_pairwise_f1_2():
+    """
+    Test the compute_pairwise_f1 function from a Result object when pairwise
+    precision is undefined.
+    """
+    arid_1 = Arid("1")
+    arid_2 = Arid("2")
+    arid_3 = Arid("3")
+    arid_list_cluster_1 = [arid_1, arid_2, arid_3]
+    arid_list_cluster_2 = [arid_1]
+    arid_list_cluster_3 = [arid_2]
+    arid_list_cluster_4 = [arid_3]
+    cluster_1 = Cluster(arid_list_cluster_1)
+    cluster_2 = Cluster(arid_list_cluster_2)
+    cluster_3 = Cluster(arid_list_cluster_3)
+    cluster_4 = Cluster(arid_list_cluster_4)
+    theoretical_clusters = [cluster_1]
+    empirical_clusters = [cluster_2, cluster_3, cluster_4]
+    result = Result(theoretical_clusters, empirical_clusters)
+    assert result.compute_pairwise_f1() is None
+
+
+def test_compute_pairwise_f1_3():
+    """
+    Test the compute_pairwise_f1 function from a Result object when pairwise
+    recall is undefined.
+    """
+    arid_1 = Arid("1")
+    arid_2 = Arid("2")
+    arid_3 = Arid("3")
+    arid_list_cluster_1 = [arid_1]
+    arid_list_cluster_2 = [arid_2]
+    arid_list_cluster_3 = [arid_3]
+    arid_list_cluster_4 = [arid_1, arid_2, arid_3]
+    cluster_1 = Cluster(arid_list_cluster_1)
+    cluster_2 = Cluster(arid_list_cluster_2)
+    cluster_3 = Cluster(arid_list_cluster_3)
+    cluster_4 = Cluster(arid_list_cluster_4)
+    theoretical_clusters = [cluster_1, cluster_2, cluster_3]
+    empirical_clusters = [cluster_4]
+    result = Result(theoretical_clusters, empirical_clusters)
+    assert result.compute_pairwise_f1() is None
+
+
 def test_compute_ratio_of_cluster_size():
     """
     Test the compute_ratio_of_cluster_size function from the Result

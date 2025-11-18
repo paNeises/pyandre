@@ -113,6 +113,91 @@ class Result():
         k = math.sqrt(acp * aap)
         return k
 
+    def compute_pairwise_precision(self) -> float | None:
+        """
+        Compute and return the pairwise precision of this result.
+        """
+        theoretical_clm = {}
+        for index in range(len(self._theoretical_clusters)):
+            cluster = self._theoretical_clusters[index]
+            arid_list = cluster.get_arid_list()
+            identifier_list = Arid.arid_list_to_arid_identifier_list(arid_list)
+            for identifier in identifier_list:
+                theoretical_clm[identifier] = index
+        empirical_clm = {}
+        for index in range(len(self._empirical_clusters)):
+            cluster = self._empirical_clusters[index]
+            arid_list = cluster.get_arid_list()
+            identifier_list = Arid.arid_list_to_arid_identifier_list(arid_list)
+            for identifier in identifier_list:
+                empirical_clm[identifier] = index
+        a = 0
+        c = 0
+        for index_1 in range(len(self._contained_arids)):
+            for index_2 in range(index_1 + 1, len(self._contained_arids)):
+                identifier_1 = self._contained_arids[index_1].get_identifier()
+                identifier_2 = self._contained_arids[index_2].get_identifier()
+                tc_1 = theoretical_clm[identifier_1]
+                tc_2 = theoretical_clm[identifier_2]
+                ec_1 = empirical_clm[identifier_1]
+                ec_2 = empirical_clm[identifier_2]
+                if ec_1 == ec_2 and tc_1 == tc_2:
+                    a += 1
+                elif ec_1 == ec_2 and tc_1 != tc_2:
+                    c += 1
+        pp = None
+        if (a + c) != 0:
+            pp = a / (a + c)
+        return pp
+
+    def compute_pairwise_recall(self) -> float | None:
+        """
+        Compute and return the pairwise recall of this result.
+        """
+        theoretical_clm = {}
+        for index in range(len(self._theoretical_clusters)):
+            cluster = self._theoretical_clusters[index]
+            arid_list = cluster.get_arid_list()
+            identifier_list = Arid.arid_list_to_arid_identifier_list(arid_list)
+            for identifier in identifier_list:
+                theoretical_clm[identifier] = index
+        empirical_clm = {}
+        for index in range(len(self._empirical_clusters)):
+            cluster = self._empirical_clusters[index]
+            arid_list = cluster.get_arid_list()
+            identifier_list = Arid.arid_list_to_arid_identifier_list(arid_list)
+            for identifier in identifier_list:
+                empirical_clm[identifier] = index
+        a = 0
+        b = 0
+        for index_1 in range(len(self._contained_arids)):
+            for index_2 in range(index_1 + 1, len(self._contained_arids)):
+                identifier_1 = self._contained_arids[index_1].get_identifier()
+                identifier_2 = self._contained_arids[index_2].get_identifier()
+                tc_1 = theoretical_clm[identifier_1]
+                tc_2 = theoretical_clm[identifier_2]
+                ec_1 = empirical_clm[identifier_1]
+                ec_2 = empirical_clm[identifier_2]
+                if ec_1 == ec_2 and tc_1 == tc_2:
+                    a += 1
+                elif ec_1 != ec_2 and tc_1 == tc_2:
+                    b += 1
+        pr = None
+        if (a + b) != 0:
+            pr = a / (a + b)
+        return pr
+
+    def compute_pairwise_f1(self) -> float | None:
+        """
+        Compute and return the pairwise F1 of this result.
+        """
+        pp = self.compute_pairwise_precision()
+        pr = self.compute_pairwise_recall()
+        pf1 = None
+        if pp is not None and pr is not None:
+            pf1 = (2 * pp * pr) / (pp + pr)
+        return pf1
+
     def compute_ratio_of_cluster_size(self) -> float:
         """
         Compute and return the ratio of cluster size (RCS) of this result.
