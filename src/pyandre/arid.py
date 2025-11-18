@@ -37,3 +37,16 @@ class Arid():
         if len(arid_list) == len(arid_id_set):
             return True
         return False
+
+    def arid_list_to_arid_identifier_list(arid_list: list[Arid]) -> list[str]:
+        """
+        Takes alist of Arid objects as input and outputs the list of the
+        identifiers of these Arid objects.
+
+        Keyword arguments:
+        aird_list: The given list of Arid's.
+        """
+        identifier_list: list[str] = []
+        for arid in arid_list:
+            identifier_list.append(arid.get_identifier())
+        return identifier_list

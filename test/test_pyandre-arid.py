@@ -31,7 +31,7 @@ def test_get_identifier_1():
 def test_check_arid_list_contains_only_unique_arids_1():
     """
     Test the static check_arid_list_contains_only_unique_arids function of the
-    Arid class with a list containing only unique Arid's
+    Arid class with a list containing only unique Arid's.
     """
     arid_1 = Arid("1")
     arid_2 = Arid("2")
@@ -42,10 +42,22 @@ def test_check_arid_list_contains_only_unique_arids_1():
 def test_check_arid_list_contains_only_unique_arids_2():
     """
     Test the static check_arid_list_contains_only_unique_arids function of the
-    Arid class with a list containing a duplicate Arid's
+    Arid class with a list containing a duplicate Arid's.
     """
     arid_1 = Arid("1")
     arid_2 = Arid("2")
     arid_3 = Arid("1")
     arid_list = [arid_1, arid_2, arid_3]
     assert Arid.check_arid_list_contains_only_unique_arids(arid_list) is False
+
+
+def test_arid_list_to_arid_identifier_list_1():
+    """
+    Test the static arid_list_to_arid_identifier_list function of the
+    Arid class.
+    """
+    arid_1 = Arid("1")
+    arid_2 = Arid("2")
+    arid_list = [arid_1, arid_2]
+    identifier_list = ["1", "2"]
+    assert Arid.arid_list_to_arid_identifier_list(arid_list) == identifier_list
