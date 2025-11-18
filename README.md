@@ -11,6 +11,9 @@ It implements the evaluation metrics as described in chapter 2.3 of the book "Au
 - pairwise precision (pP)
 - pairwise recall (pR)
 - pairwise F1 (pF1)
+- cluster precision (cP)
+- cluster recall (cR)
+- cluster F1 (cF1)
 - ratio of cluster size (RCS)
 
 # Installation
@@ -81,5 +84,8 @@ print(result.compute_k())
 print(result.compute_pairwise_precision())
 print(result.compute_pairwise_recall())
 print(result.compute_pairwise_f1())
+print(result.compute_cluster_precision())
+print(result.compute_cluster_recall())
+print(result.compute_cluster_f1())
 print(result.compute_ratio_of_cluster_size())
 ```
