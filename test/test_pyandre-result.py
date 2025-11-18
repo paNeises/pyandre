@@ -525,6 +525,40 @@ def test_compute_cluster_precision_1():
     assert result.compute_cluster_precision() == cp
 
 
+def test_compute_cluster_recall_1():
+    """
+    Test the compute_cluster_recall function from a Result object.
+    """
+    arid_1 = Arid("1")
+    arid_2 = Arid("2")
+    arid_3 = Arid("3")
+    arid_4 = Arid("4")
+    arid_5 = Arid("5")
+    arid_6 = Arid("6")
+    arid_7 = Arid("7")
+    arid_8 = Arid("8")
+    arid_9 = Arid("9")
+    arid_list_cluster_1 = [arid_1, arid_2, arid_3, arid_4]
+    arid_list_cluster_2 = [arid_5, arid_6, arid_7]
+    arid_list_cluster_3 = [arid_8, arid_9]
+    arid_list_cluster_4 = [arid_1, arid_2, arid_3]
+    arid_list_cluster_5 = [arid_5, arid_6, arid_7]
+    arid_list_cluster_6 = [arid_4, arid_8]
+    arid_list_cluster_7 = [arid_9]
+    cluster_1 = Cluster(arid_list_cluster_1)
+    cluster_2 = Cluster(arid_list_cluster_2)
+    cluster_3 = Cluster(arid_list_cluster_3)
+    cluster_4 = Cluster(arid_list_cluster_4)
+    cluster_5 = Cluster(arid_list_cluster_5)
+    cluster_6 = Cluster(arid_list_cluster_6)
+    cluster_7 = Cluster(arid_list_cluster_7)
+    theoretical_clusters = [cluster_1, cluster_2, cluster_3]
+    empirical_clusters = [cluster_4, cluster_5, cluster_6, cluster_7]
+    result = Result(theoretical_clusters, empirical_clusters)
+    cr = 1 / 3
+    assert result.compute_cluster_recall() == cr
+
+
 def test_compute_ratio_of_cluster_size():
     """
     Test the compute_ratio_of_cluster_size function from the Result

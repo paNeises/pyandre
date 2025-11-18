@@ -229,6 +229,37 @@ class Result():
         cp = a / (a + c)
         return cp
 
+    def compute_cluster_recall(self) -> float:
+        """
+        Compute and return the cluster precision of this result.
+        """
+        theoretical_set_list = []
+        for cluster in self._theoretical_clusters:
+            arid_list = cluster.get_arid_list()
+            identifier_set =\
+                set(Arid.arid_list_to_arid_identifier_list(arid_list))
+            theoretical_set_list.append(identifier_set)
+        empirical_set_list = []
+        for cluster in self._empirical_clusters:
+            arid_list = cluster.get_arid_list()
+            identifier_set =\
+                set(Arid.arid_list_to_arid_identifier_list(arid_list))
+            empirical_set_list.append(identifier_set)
+        a = 0
+        b = 0
+        for theoretical_set in theoretical_set_list:
+            match = False
+            for empirical_set in empirical_set_list:
+                if theoretical_set == empirical_set:
+                    match = True
+                    break
+            if match:
+                a += 1
+            else:
+                b += 1
+        cr = a / (a + b)
+        return cr
+
     def compute_ratio_of_cluster_size(self) -> float:
         """
         Compute and return the ratio of cluster size (RCS) of this result.
