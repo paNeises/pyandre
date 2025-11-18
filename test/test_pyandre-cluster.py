@@ -42,6 +42,16 @@ def test_consturctor_3():
     assert exception.type == ValueError
 
 
+def test_consturctor_4():
+    """
+    Test the constructor of the Cluster class with an empty list.
+    """
+    arid_list = []
+    with pytest.raises(Exception) as exception:
+        Cluster(arid_list)
+    assert exception.type == ValueError
+
+
 def test_get_arid_list_1():
     """
     Test the get_arid_list function of the Cluster class.

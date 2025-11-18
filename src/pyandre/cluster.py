@@ -15,6 +15,9 @@ class Cluster():
         Keyword arguments:
         arid_list: The list of authorship record ID's.
         """
+        if len(arid_list) == 0:
+            raise ValueError("The Arid list contains no elements, which is "
+                             "forbidden when creating a Cluster object")
         for arid in arid_list:
             if not isinstance(arid, Arid):
                 raise TypeError("The Arid list contains an item that is not "
