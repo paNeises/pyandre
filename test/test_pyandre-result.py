@@ -329,7 +329,7 @@ def test_compute_pairwise_precision_1():
     theoretical_clusters = [cluster_1, cluster_2, cluster_3]
     empirical_clusters = [cluster_4, cluster_5, cluster_6, cluster_7]
     result = Result(theoretical_clusters, empirical_clusters)
-    pp = 6/7
+    pp = 6 / 7
     assert result.compute_pairwise_precision() == pp
 
 
@@ -385,7 +385,7 @@ def test_compute_pairwise_recall_1():
     theoretical_clusters = [cluster_1, cluster_2, cluster_3]
     empirical_clusters = [cluster_4, cluster_5, cluster_6, cluster_7]
     result = Result(theoretical_clusters, empirical_clusters)
-    pr = 6/10
+    pr = 6 / 10
     assert result.compute_pairwise_recall() == pr
 
 
@@ -441,8 +441,8 @@ def test_compute_pairwise_f1_1():
     theoretical_clusters = [cluster_1, cluster_2, cluster_3]
     empirical_clusters = [cluster_4, cluster_5, cluster_6, cluster_7]
     result = Result(theoretical_clusters, empirical_clusters)
-    pp = 6/7
-    pr = 6/10
+    pp = 6 / 7
+    pr = 6 / 10
     pf1 = (2 * pp * pr) / (pp + pr)
     assert result.compute_pairwise_f1() == pf1
 
