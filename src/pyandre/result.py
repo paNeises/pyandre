@@ -198,6 +198,37 @@ class Result():
             pf1 = (2 * pp * pr) / (pp + pr)
         return pf1
 
+    def compute_cluster_precision(self) -> float:
+        """
+        Compute and return the cluster precision of this result.
+        """
+        theoretical_set_list = []
+        for cluster in self._theoretical_clusters:
+            arid_list = cluster.get_arid_list()
+            identifier_set =\
+                set(Arid.arid_list_to_arid_identifier_list(arid_list))
+            theoretical_set_list.append(identifier_set)
+        empirical_set_list = []
+        for cluster in self._empirical_clusters:
+            arid_list = cluster.get_arid_list()
+            identifier_set =\
+                set(Arid.arid_list_to_arid_identifier_list(arid_list))
+            empirical_set_list.append(identifier_set)
+        a = 0
+        c = 0
+        for empirical_set in empirical_set_list:
+            match = False
+            for theoretical_set in theoretical_set_list:
+                if empirical_set == theoretical_set:
+                    match = True
+                    break
+            if match:
+                a += 1
+            else:
+                c += 1
+        cp = a / (a + c)
+        return cp
+
     def compute_ratio_of_cluster_size(self) -> float:
         """
         Compute and return the ratio of cluster size (RCS) of this result.
