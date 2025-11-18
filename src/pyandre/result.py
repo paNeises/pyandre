@@ -231,7 +231,7 @@ class Result():
 
     def compute_cluster_recall(self) -> float:
         """
-        Compute and return the cluster precision of this result.
+        Compute and return the cluster recall of this result.
         """
         theoretical_set_list = []
         for cluster in self._theoretical_clusters:
@@ -259,6 +259,15 @@ class Result():
                 b += 1
         cr = a / (a + b)
         return cr
+
+    def compute_cluster_f1(self) -> float | None:
+        """
+        Compute and return the cluster F1 of this result.
+        """
+        cp = self.compute_cluster_precision()
+        cr = self.compute_cluster_recall()
+        cf1 = (2 * cp * cr) / (cp + cr)
+        return cf1
 
     def compute_ratio_of_cluster_size(self) -> float:
         """
