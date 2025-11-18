@@ -1,3 +1,9 @@
+# v0.8.0
+
+- Add cluster Precision, cluster Recall and cluster F1 metrics
+- Make sure clusters can not be empty
+- Add type checking to the Result constructor
+
 # v0.7.0
 
 - First usable version
