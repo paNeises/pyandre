@@ -171,6 +171,61 @@ def test_constructor_6():
     assert exception.type == ValueError
 
 
+def test_constructor_7():
+    """
+    Test the creation of a Result object with invalid cluster lists, where
+    the theoretical one contains an object that is not a pyandre.Cluster
+    object.
+    """
+    arid_1 = Arid("1")
+    arid_2 = Arid("2")
+    arid_3 = Arid("3")
+    arid_4 = Arid("4")
+    arid_5 = Arid("5")
+    arid_list_cluster_1 = [arid_1, arid_2]
+    arid_list_cluster_2 = [arid_3, arid_4, arid_5]
+    arid_list_cluster_3 = [arid_1]
+    arid_list_cluster_4 = [arid_2, arid_3]
+    arid_list_cluster_5 = [arid_4]
+    cluster_1 = Cluster(arid_list_cluster_1)
+    cluster_2 = Cluster(arid_list_cluster_2)
+    cluster_3 = Cluster(arid_list_cluster_3)
+    cluster_4 = Cluster(arid_list_cluster_4)
+    cluster_5 = Cluster(arid_list_cluster_5)
+    theoretical_clusters = [cluster_1, cluster_2, "1"]
+    empirical_clusters = [cluster_3, cluster_4, cluster_5]
+    with pytest.raises(Exception) as exception:
+        Result(theoretical_clusters, empirical_clusters)
+    assert exception.type == TypeError
+
+
+def test_constructor_8():
+    """
+    Test the creation of a Result object with invalid cluster lists, where
+    the empirical one contains an object that is not a pyandre.Cluster object.
+    """
+    arid_1 = Arid("1")
+    arid_2 = Arid("2")
+    arid_3 = Arid("3")
+    arid_4 = Arid("4")
+    arid_5 = Arid("5")
+    arid_list_cluster_1 = [arid_1, arid_2]
+    arid_list_cluster_2 = [arid_3, arid_4, arid_5]
+    arid_list_cluster_3 = [arid_1]
+    arid_list_cluster_4 = [arid_2, arid_3]
+    arid_list_cluster_5 = [arid_4]
+    cluster_1 = Cluster(arid_list_cluster_1)
+    cluster_2 = Cluster(arid_list_cluster_2)
+    cluster_3 = Cluster(arid_list_cluster_3)
+    cluster_4 = Cluster(arid_list_cluster_4)
+    cluster_5 = Cluster(arid_list_cluster_5)
+    theoretical_clusters = [cluster_1, cluster_2]
+    empirical_clusters = [cluster_3, cluster_4, cluster_5, "1"]
+    with pytest.raises(Exception) as exception:
+        Result(theoretical_clusters, empirical_clusters)
+    assert exception.type == TypeError
+
+
 def test_get_contained_arids():
     """
     Test the get_contained_arids function of the Result class.

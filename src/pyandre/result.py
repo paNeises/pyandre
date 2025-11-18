@@ -21,6 +21,18 @@ class Result():
         clusters contains only unique Arid's and that both lists contain the
         same set of arids.
         """
+        for cluster in theoretical_clusters:
+            if not isinstance(cluster, Cluster):
+                raise TypeError("The given theoretical clusters contain an "
+                                "element that is not of the type "
+                                "pyandre.Cluster, which is forbidden when "
+                                "creating a Result object.")
+        for cluster in empirical_clusters:
+            if not isinstance(cluster, Cluster):
+                raise TypeError("The given empirical clusters contain an "
+                                "element that is not of the type "
+                                "pyandre.Cluster, which is forbidden when "
+                                "creating a Result object.")
         theoretical_arids: list[Arid] = []
         for cluster in theoretical_clusters:
             theoretical_arids += cluster.get_arid_list()
@@ -28,7 +40,7 @@ class Result():
                 theoretical_arids):
             raise ValueError("The given theoretical clusters contain "
                              "duplicate Arid's which is forbidden when "
-                             "creating a BlockResult object.")
+                             "creating a Result object.")
         empirical_arids: list[Arid] = []
         for cluster in empirical_clusters:
             empirical_arids += cluster.get_arid_list()
@@ -36,7 +48,7 @@ class Result():
                 empirical_arids):
             raise ValueError("The given empirical clusters contain duplicate "
                              "Arid's which is forbidden when creating a "
-                             "BlockResult object.")
+                             "Result object.")
         theoretical_identifiers = []
         for arid in theoretical_arids:
             theoretical_identifiers.append(arid.get_identifier())
@@ -47,7 +59,7 @@ class Result():
             raise ValueError("The set of all Arid's in the theoretical "
                              "clusters does not match the set of all Arid's "
                              "in the empirical clusters, which is forbidden "
-                             "when creating a BlockResult object.")
+                             "when creating a Result object.")
         self._theoretical_clusters: list[Cluster] = theoretical_clusters
         self._empirical_clusters: list[Cluster] = empirical_clusters
         self._contained_arids: list[Arid] = theoretical_arids
