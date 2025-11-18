@@ -1,3 +1,8 @@
+# v0.7.0
+
+- First usable version
+- Add about section, install instructions and usage example to README.md
+
 # v0.6.0
 
 - Add pairwise Precision, pairwise Recall and pairwise F1 metrics
