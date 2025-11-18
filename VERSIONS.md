@@ -1,3 +1,9 @@
+# v0.6.0
+
+- Add pairwise Precision, pairwise Recall and pairwise F1 metrics
+- Add ratio of cluster size metric
+- Not yet usable
+
 # v0.5.0
 
 - Rename the result class
