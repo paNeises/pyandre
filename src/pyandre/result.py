@@ -272,7 +272,7 @@ class Result():
         cr = a / (a + b)
         return cr
 
-    def compute_cluster_f1(self) -> float | None:
+    def compute_cluster_f1(self) -> float:
         """
         Compute and return the cluster F1 of this result.
         """
@@ -289,3 +289,90 @@ class Result():
         theoretical_cluster_count = len(self._theoretical_clusters)
         rcs = empirical_cluster_count / theoretical_cluster_count
         return rcs
+
+    def compute_bp(self) -> float:
+        """
+        Compute and return the B-Cubed precision (bP) of this result.
+        """
+        theoretical_set_list = []
+        for cluster in self._theoretical_clusters:
+            arid_list = cluster.get_arid_list()
+            identifier_set =\
+                set(Arid.arid_list_to_arid_identifier_list(arid_list))
+            theoretical_set_list.append(identifier_set)
+        empirical_set_list = []
+        for cluster in self._empirical_clusters:
+            arid_list = cluster.get_arid_list()
+            identifier_set =\
+                set(Arid.arid_list_to_arid_identifier_list(arid_list))
+            empirical_set_list.append(identifier_set)
+        bp = 0
+        wr = 1 / len(self._contained_arids)
+        for arid in self._contained_arids:
+            identifier = arid.get_identifier()
+            theoretical_set = None
+            for loop_set in theoretical_set_list:
+                if identifier in loop_set:
+                    theoretical_set = loop_set
+                    break
+            empirical_set = None
+            for loop_set in empirical_set_list:
+                if identifier in loop_set:
+                    empirical_set = loop_set
+                    break
+            if empirical_set is None or theoretical_set is None:
+                raise ValueError("There exists an Arid in the result that is "
+                                 "not part of a theoretical or an empirical "
+                                 "cluster, which is forbidden.")
+            nir = len(theoretical_set & empirical_set)
+            ni = len(empirical_set)
+            bp += (wr * (nir / ni))
+        return bp
+
+    def compute_br(self) -> float:
+        """
+        Compute and return the B-Cubed recall (bR) of this result.
+        """
+        theoretical_set_list = []
+        for cluster in self._theoretical_clusters:
+            arid_list = cluster.get_arid_list()
+            identifier_set =\
+                set(Arid.arid_list_to_arid_identifier_list(arid_list))
+            theoretical_set_list.append(identifier_set)
+        empirical_set_list = []
+        for cluster in self._empirical_clusters:
+            arid_list = cluster.get_arid_list()
+            identifier_set =\
+                set(Arid.arid_list_to_arid_identifier_list(arid_list))
+            empirical_set_list.append(identifier_set)
+        br = 0
+        wr = 1 / len(self._contained_arids)
+        for arid in self._contained_arids:
+            identifier = arid.get_identifier()
+            theoretical_set = None
+            for loop_set in theoretical_set_list:
+                if identifier in loop_set:
+                    theoretical_set = loop_set
+                    break
+            empirical_set = None
+            for loop_set in empirical_set_list:
+                if identifier in loop_set:
+                    empirical_set = loop_set
+                    break
+            if empirical_set is None or theoretical_set is None:
+                raise ValueError("There exists an Arid in the result that is "
+                                 "not part of a theoretical or an empirical "
+                                 "cluster, which is forbidden.")
+            nir = len(theoretical_set & empirical_set)
+            nj = len(theoretical_set)
+            br += (wr * (nir / nj))
+        return br
+
+    def compute_bFa(self, alpha=0.5) -> float:
+        """
+        Compute and return the B-Cubed F alpha (bFa) of this result.
+        """
+        bp = self.compute_bp()
+        br = self.compute_br()
+        bfa = 1 / ((alpha / bp) + ((1 - alpha) / br))
+        return bfa
