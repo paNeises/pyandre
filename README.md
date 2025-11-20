@@ -15,6 +15,9 @@ It implements the evaluation metrics as described in chapter 2.3 of the book "Au
 - cluster recall (cR)
 - cluster F1 (cF1)
 - ratio of cluster size (RCS)
+- B-Cubed precision (bP)
+- B-Cubed recall (bR)
+- B-Cubed F (bFa)
 
 # Installation
 
@@ -88,4 +91,7 @@ print(result.compute_cluster_precision())
 print(result.compute_cluster_recall())
 print(result.compute_cluster_f1())
 print(result.compute_ratio_of_cluster_size())
+print(result.compute_bp())
+print(result.compute_br())
+print(result.compute_bfa())
 ```
