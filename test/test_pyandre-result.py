@@ -793,4 +793,4 @@ def test_compute_bFa_1():
         * (1 / 4) + (1 / 9) * (3 / 3) + (1 / 9) * (3 / 3) + (1 / 9)\
         * (3 / 3) + (1 / 9) * (1 / 2) + (1 / 9) * (1 / 2)
     bfa = 1 / ((0.5 / bp) + (0.5 / br))
-    assert result.compute_bFa() == bfa
+    assert result.compute_bfa() == bfa

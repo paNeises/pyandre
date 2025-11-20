@@ -368,7 +368,7 @@ class Result():
             br += (wr * (nir / nj))
         return br
 
-    def compute_bFa(self, alpha=0.5) -> float:
+    def compute_bfa(self, alpha=0.5) -> float:
         """
         Compute and return the B-Cubed F alpha (bFa) of this result.
         """
